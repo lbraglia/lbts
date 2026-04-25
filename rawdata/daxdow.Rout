@@ -1,0 +1,6 @@
+> daxdow <- read.table(file = "daxdow.txt")
+> dax <- daxdow[, 1]
+> dow <- daxdow[, 2]
+> save("dax", file = "../data/dax.rda", compress = "bzip2")
+> save("dow", file = "../data/dow.rda", compress = "bzip2")
+> 

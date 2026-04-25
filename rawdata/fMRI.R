@@ -1,0 +1,3 @@
+load("fMRI.RData")
+fmri <- Y
+save("fmri", file = "../data/fmri.rda", compress = "bzip2")
