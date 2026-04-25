@@ -4,12 +4,12 @@
 \name{lbts-package}
 \alias{lbts}
 \alias{lbts-package}
-\title{lbts: What the Package Does (One Line, Title Case)}
+\title{lbts: Miscellaneous time series functions and datasets}
 \description{
-What the package does (one paragraph).
+Miscellaneous time series functions and datasets.
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com}
+\strong{Maintainer}: Luca Braglia \email{lbraglia@gmail.com}
 
 }
 \keyword{internal}
