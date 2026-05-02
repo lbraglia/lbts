@@ -9,8 +9,15 @@ ts_plot <- function(x, lag.max=50, ...){
 
 # Plotting of multiple time series
 #'@export
-
 mts_plot <- function(x, col=lbmisc::col2hex("black", 0.1), ...){
   if (is.list(x)) x <- do.call(cbind, x)
   ts.plot(x, xlab="Time", col=col, ...)
+}
+
+
+# Stick plot for theoretical ACF
+#'@export
+stick_plot <- function(y, x=seq(0,length(y)-1), xlab="Time", ...){
+  plot(x = x, y = y, type = 'h', ...)
+  abline(h=0)
 }

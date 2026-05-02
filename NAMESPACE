@@ -3,4 +3,6 @@
 export(mts_plot)
 export(sim_ar1)
 export(sim_ma1)
+export(sim_rw)
+export(stick_plot)
 export(ts_plot)
