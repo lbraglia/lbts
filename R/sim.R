@@ -28,3 +28,14 @@ sim_rw <- function (n = 100, x0 = 0, xt = rnorm)
   rw <- cumsum(c(x0, xts))
   rw[-length(rw)]
 }
+
+
+#'@export
+sim_arma11 <- function(n=100, omega=0, theta=0.5, psi = 0.5, sigma2=1){
+  e <- sqrt(sigma2) * rnorm(n) # epsilon_t sim N(0, sigma^2)
+  x <- omega/(1-psi) # initialization
+  for (t in seq(1, n-1)){
+    x[t+1] = omega + psi * x[t]   + theta * e[t]    + e[t+1]
+  }
+  x
+}
