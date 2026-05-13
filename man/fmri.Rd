@@ -4,7 +4,7 @@
 \alias{fmri}
 \title{fmri data}
 \usage{
-fmri(pt = 1, brain_region = 1, test_retest = 1)
+fmri(pt = 18, brain_region = 64, test_retest = 1)
 }
 \description{
 subjects are at rest
