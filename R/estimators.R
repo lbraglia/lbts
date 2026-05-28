@@ -33,7 +33,12 @@ KF <- function(y, theta_0 = c("phi"=0.8, "sigma_epsilon"=1, "sigma_eta"=1), plot
 
   ## parameters optimization
   ## hat_theta <- nlminb(start = theta_0, objective = KF_loglikelihood, y = y)$par
-  hat_theta <- optim(par = theta_0, fn = KF_loglikelihood, y = y)$par
+  ## hat_theta <- optim(par = theta_0, fn = KF_loglikelihood, y = y)$par
+  hat_theta <- optim(par = theta_0, fn = KF_loglikelihood, y = y,
+                     method = "L-BFGS-B",
+                     lower = c(-1, 0.01, 0.01),
+                     upper = c(1, 100, 100)
+                     )$par
 
   ## predicted mu by KF
   kf_mu <- KF_pred(y=y,
@@ -46,6 +51,6 @@ KF <- function(y, theta_0 = c("phi"=0.8, "sigma_epsilon"=1, "sigma_eta"=1), plot
     legend("topleft", col = c("grey", "blue"), lty=1, legend = c("observed y", "KF mu"))
   }
   
-  invisible(list("hat_theta" = hat_theta, "y" = y, "KF_mu" = kf_mu))
+  invisible(list("hat_theta" = hat_theta, "y" = y, "KF_mu" = kf_mu, "v" = y - kf_mu))
        
 }
