@@ -39,3 +39,30 @@ sim_arma11 <- function(n=100, omega=0, theta=0.5, phi = 0.5, sigma2=1){
   }
   x
 }
+
+
+
+#'@export
+sim_ar1noise <- function(n=100,
+                         sigma_epsilon=1, # variance error term noise
+                         sigma_eta=1, # variance error term signal
+                         phi=0.5, # AR phi parameter
+                         mu1=0, # unconditional mean of an AR(1) process with no intercept (its mu[1])
+                         y1=0, # starting point of series
+                         return_mu=TRUE
+                         ){
+
+  y <- y1
+  mu <- mu1
+  eta <- sigma_eta * rnorm(n) # N(0,sigma_eta^2)
+  epsilon <- sigma_epsilon * rnorm(n)
+
+  for(t in 1:(n-1)){
+    # we start updating the prediction of next signal with initialization parameters
+    mu[t+1] <- phi * mu[t] + eta[t]
+    # obtain the observed signal + noise
+    y[t+1] <-  mu[t+1] + epsilon[t+1]
+  }
+
+  if (return_mu) list("y"=y, "mu"=mu) else y
+}
