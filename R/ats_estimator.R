@@ -36,7 +36,7 @@ plot.ats_estimates <- function(x, ...){
     lty = ltys,
     ...
   )
-  legend("topleft", col = cols, lty=ltys, legend = legend)
+  legend("bottomright", col = cols, lty=ltys, legend = legend)
 }
 
 #' @export
@@ -45,8 +45,13 @@ residuals.ats_estimates <- function(x, lag.max=50){
   kf_innovation_error <- as.numeric(x$kf$v)
   sct_innovation_error <- as.numeric(x$y - x$sct$Dynamic_Location)
   plTS <- function(x, ...) ts.plot(x, xlab="Time", ...)
-  plACF <- function(x) acf(x,lag.max = lag.max, main="")
-  plPACF <- function(x) pacf(x,lag.max = lag.max, main="")
+  plACF <- function(x) {
+    acf(x,lag.max = lag.max, main="")
+    test <- lbmisc::pretty_pval(Box.test(x, type="Ljung", lag=10)$p.value, equal=TRUE)
+    subtitle <- sprintf("(Box-Ljung's p%s)", test)
+    title(sub=subtitle)
+  }
+  ## plPACF <- function(x) pacf(x,lag.max = lag.max, main="")
   qq <- function(x) {
     test <- lbmisc::pretty_pval(shapiro.test(x)$p.value, equal=TRUE)
     subtitle <- sprintf("(Shapiro's p%s, Kurtosis=%.2f)", test, kurtosis(x))
