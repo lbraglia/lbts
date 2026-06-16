@@ -68,6 +68,30 @@ sim_ar1noise <- function(n=100,
 }
 
 
+
+#'@export
+sim_garch11 <- function(n=2000, # typically, time varying variance shows up
+                        # slowly and a large number of observations is required
+                        # static parameters: omega (intercept), alpha
+                        # (autoregressive), beta (coeff attached to
+                        # sigma^2_t-1) remind: omega, alpha, beta > 0 and alpha
+                        # + beta <1
+                        omega = 0.2,
+                        alpha = 0.05,
+                        beta = 0.8
+                        ){
+  # initialise the recursion 
+  y <- 0 # y[1]
+  s <- sqrt(omega/(1 - alpha - beta))  # s[1]: initialisation at the unconditional standard deviation 
+  z <- rnorm(n)
+  for(t in 1:(n-1)){
+    s[t+1] = sqrt(omega + alpha * y[t]^2 + beta * s[t]^2)
+    y[t+1] = s[t+1] * z[t+1] 
+  }
+  list("y"=y, "s"=s)
+}
+
+
 ##########################
 ##### Score driven t model
 ##########################
